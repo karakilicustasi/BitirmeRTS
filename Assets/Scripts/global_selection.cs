@@ -59,11 +59,12 @@ public class global_selection : MonoBehaviour
 
                 if(Physics.Raycast(ray,out hit, 50000.0f))
                 {
-                    if (Input.GetKey(KeyCode.LeftShift)) //inclusive select
+                    if (Input.GetKey(KeyCode.LeftShift)&&!hit.transform.gameObject.CompareTag("Plane")) //inclusive select//dont add if the selected item is plane
                     {
+                        
                         selected_table.addSelected(hit.transform.gameObject);
                     }
-                    else //exclusive selected
+                    else if(!hit.transform.gameObject.CompareTag("Plane")) //exclusive selected
                     {
                         selected_table.deselectAll();
                         selected_table.addSelected(hit.transform.gameObject);
@@ -209,7 +210,8 @@ public class global_selection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        selected_table.addSelected(other.gameObject);
+        if(!other.gameObject.CompareTag("Plane"))//dont add if the selected item is plane
+            selected_table.addSelected(other.gameObject);
     }
 
 }

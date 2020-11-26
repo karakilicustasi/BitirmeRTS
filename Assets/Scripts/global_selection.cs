@@ -6,7 +6,7 @@ public class global_selection : MonoBehaviour
 {
     selected_dictionary selected_table;
     RaycastHit hit;
-
+    Unit u;
     bool dragSelect;
 
     //Collider variables
@@ -29,6 +29,7 @@ public class global_selection : MonoBehaviour
     void Start()
     {
         selected_table = GetComponent<selected_dictionary>();
+        u = GetComponent<Unit>();
         dragSelect = false;
     }
 
@@ -44,6 +45,7 @@ public class global_selection : MonoBehaviour
         //2. while left mouse button held
         if (Input.GetMouseButton(0))
         {
+            
             if((p1 - Input.mousePosition).magnitude > 40)
             {
                 dragSelect = true;
@@ -61,14 +63,17 @@ public class global_selection : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.LeftShift)&&!hit.transform.gameObject.CompareTag("Plane")) //inclusive select//dont add if the selected item is plane
                     {
-                        
+                       
                         selected_table.addSelected(hit.transform.gameObject);
                     }
                     else if(!hit.transform.gameObject.CompareTag("Plane")) //exclusive selected
                     {
                         selected_table.deselectAll();
+                        //u.ClearUnit();
                         selected_table.addSelected(hit.transform.gameObject);
                     }
+                    /* Character c = hit.transform.gameObject.GetComponent<Character>();
+                     u.AddCharacter(c);*/
                 }
                 else //if we didnt hit something
                 {
@@ -79,6 +84,7 @@ public class global_selection : MonoBehaviour
                     else
                     {
                         selected_table.deselectAll();
+                       // u.ClearUnit();
                     }
                 }
             }
@@ -114,6 +120,7 @@ public class global_selection : MonoBehaviour
                 if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     selected_table.deselectAll();
+                    u.ClearUnit();
                 }
 
                Destroy(selectionBox, 0.02f);
@@ -212,6 +219,9 @@ public class global_selection : MonoBehaviour
     {
         if(!other.gameObject.CompareTag("Plane"))//dont add if the selected item is plane
             selected_table.addSelected(other.gameObject);
+           /* Character c = other.gameObject.GetComponent<Character>();
+            u.AddCharacter(c);*/
+            
     }
 
 }

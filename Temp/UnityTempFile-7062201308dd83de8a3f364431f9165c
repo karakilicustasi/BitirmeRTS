@@ -290,6 +290,9 @@
 /define:CSHARP_7_OR_LATER
 /define:CSHARP_7_3_OR_NEWER
 "Assets/Scripts/CameraController.cs"
+"Assets/Scripts/Character.cs"
+"Assets/Scripts/Unit.cs"
+"Assets/Scripts/UnitHandler.cs"
 "Assets/Scripts/Utils.cs"
 "Assets/Scripts/global_selection.cs"
 "Assets/Scripts/selected_dictionary.cs"

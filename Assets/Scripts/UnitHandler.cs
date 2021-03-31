@@ -68,8 +68,6 @@ public class UnitHandler : MonoBehaviour
         return 0;
     }
     public void SetUnitPositions(Vector3 destination) {
-        int followingUnits = selectedUnits.Count - 1;
-        float spacingRads = 360 / followingUnits * Mathf.Deg2Rad;
         float x = 0f;
         float y = 0f;
         float radius = 1f;

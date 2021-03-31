@@ -6,18 +6,21 @@ public class selected_dictionary : MonoBehaviour
 {
     public Dictionary<int, GameObject> selectedTable = new Dictionary<int, GameObject>();
     Unit u;
+    UnitHandler uHandler;
 
     private void Start() {
         u=GetComponent<Unit>();
+        uHandler = GetComponent<UnitHandler>();
     }
     //int size=0;
     public void addSelected(GameObject go)
     {
         int id = go.GetInstanceID();
-        u.AddCharacter(go.GetComponent<Character>());
+        
         if (!(selectedTable.ContainsKey(id)))
         {   
             selectedTable.Add(id, go);
+            uHandler.AddUnitSelected(go);
             go.AddComponent<selection_component>();
             Debug.Log("Added " + id + " to selected dict");
             //size++;
@@ -29,7 +32,7 @@ public class selected_dictionary : MonoBehaviour
     public void deselect(int id)
     {
         Destroy(selectedTable[id].GetComponent<selection_component>());
-        u.RemoveCharacter(selectedTable[id].GetComponent<Character>());
+        uHandler.RemoveUnitSelected(selectedTable[id]);
         selectedTable.Remove(id);
         //size--;
     }
@@ -44,8 +47,7 @@ public class selected_dictionary : MonoBehaviour
             }
         }
         selectedTable.Clear();
-        u.ClearUnit();
-        //size=0;
+        uHandler.ClearSelected();        //size=0;
     }
 
 }

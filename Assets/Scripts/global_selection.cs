@@ -61,12 +61,12 @@ public class global_selection : MonoBehaviour
 
                 if(Physics.Raycast(ray,out hit, 50000.0f))
                 {
-                    if (Input.GetKey(KeyCode.LeftShift)&&!hit.transform.gameObject.CompareTag("Plane")) //inclusive select//dont add if the selected item is plane
+                    if (Input.GetKey(KeyCode.LeftShift)&&hit.transform.gameObject.CompareTag("Unit")) //inclusive select//dont add if the selected item is plane
                     {
                        
                         selected_table.addSelected(hit.transform.gameObject);
                     }
-                    else if(!hit.transform.gameObject.CompareTag("Plane")) //exclusive selected
+                    else if(hit.transform.gameObject.CompareTag("Unit")) //exclusive selected
                     {
                         selected_table.deselectAll();
                         //u.ClearUnit();
@@ -120,7 +120,7 @@ public class global_selection : MonoBehaviour
                 if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     selected_table.deselectAll();
-                    u.ClearUnit();
+                    //u.ClearUnit();
                 }
 
                Destroy(selectionBox, 0.02f);
@@ -217,7 +217,7 @@ public class global_selection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!other.gameObject.CompareTag("Plane"))//dont add if the selected item is plane
+        if(other.gameObject.CompareTag("Unit"))//dont add if the selected item is plane
             selected_table.addSelected(other.gameObject);
            /* Character c = other.gameObject.GetComponent<Character>();
             u.AddCharacter(c);*/

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using Pathfinding;
 public class Character : MonoBehaviour {
     static int characterID=0;
-    public int id;
+    private int id;
     private AIDestinationSetter aiDestinationSetter;
     Transform pos_;
     GameObject positionObject;
     bool destinationSet = false;
     bool destroyedPositionObject = false;//destroy the position object given by A*
+    public int health = 100;
     private void Start() {
         pos_=this.transform;
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
@@ -19,6 +20,20 @@ public class Character : MonoBehaviour {
     private void Update() {
 
         destroyDestinationObject();
+        DestroyChar();
+    }
+    public int getHealth() {
+        return health;
+    }
+    public void InflictDamage(int damage) {
+        health -= damage; 
+    }
+    public void DestroyChar()
+    {
+        if (health<=0) {
+            Destroy(gameObject);
+
+        }
     }
     public void SetDestination(GameObject go){
         positionObject = go;

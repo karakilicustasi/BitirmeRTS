@@ -14,14 +14,31 @@ public class Unit : MonoBehaviour {
     private string formation = "square";//default formation
     private int numberOfChilds=0;
     private int width = 0;
-    private int health = 100;
-
+    public int health = 100;
+    private int kill = 75;
+    public int type;//0 - infantry, 1 - ranged, 2 - cavalry
     public Unit(){
         unitCount++;
         unitId = unitCount;
     }
     public void inflictDamage(int damage) {
         health -= damage; 
+    }
+    public void Destroy() {
+
+        if (health <= kill) {
+            Destroy(characters[numberOfChilds - 1].gameObject);
+            characters.RemoveAt(numberOfChilds-1);
+            numberOfChilds--;
+            kill = kill - 25;
+        }
+
+    }
+    public void DestroyUnit() {
+        if (health<=0) {
+            Destroy(gameObject);
+        }
+
     }
     private void fillCharacterList() {
          
@@ -73,6 +90,9 @@ public class Unit : MonoBehaviour {
     }
     private void Update() {
         destroyDestinationObject();
+        Destroy();
+        DestroyUnit();
+        Debug.Log(health + " - PlayerHealth");
     }
     public void destroyDestinationObject()
     {
